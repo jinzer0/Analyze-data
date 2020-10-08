@@ -24,9 +24,9 @@ class BigAnal(tk.Tk):
 
         self.filename = tk.StringVar()
         self.filename.set("불러온 파일 : ")
-        self.imgnumbers = 1
-        self.whatimage = tk.PhotoImage(file=f"~/Desktop/result/images/{self.imgnumbers}.png")
-        self.whatimagess = tk.Label(self.fileload, image=self.whatimage)
+
+
+
 
 
         def Fileload():
@@ -74,7 +74,7 @@ combining <- data.frame(data_a,data_b)
 combining2 <- combining %>% filter(!is.na(death))
 
 workersee <- ggplot(data = combining2, aes(x=date, y=workercount))+geom_col()+scale_y_continuous(name="Percentage of emplyment")
-ggsave("/Users/kjy/Desktop/result/images/1.png", width = 1, height = 1, unit="cm")
+ggsave("/Users/kjy/Desktop/result/images/1.png")
 
 kospisee <- ggplot(data = combining2, aes(x=date, y=kospip))+geom_col()+scale_y_continuous(name="KOSPI(%p)")
 ggsave("/Users/kjy/Desktop/result/images/2.png")
@@ -124,8 +124,8 @@ ggsave("/Users/kjy/Desktop/result/images/6.png")
             self.newwindow.title("Analyze Result")
             self.newwindow.resizable(True, True)
 
-            self.newresult = tk.Frame(self.newwindow)
-            self.newresult.pack(side="top")
+            newresult = tk.Frame(self.newwindow, width=1000, height=300)
+            newresult.pack(side="top")
 
             newcomment = tk.Frame(self.newwindow)
             newcomment.pack(side="top")
@@ -133,7 +133,6 @@ ggsave("/Users/kjy/Desktop/result/images/6.png")
             self.imagenumber = 1
 
             def Imageforward():
-
                 self.imagenumber += 1
                 if self.imagenumber > 6:
                     self.imagenumber = 1
@@ -143,8 +142,8 @@ ggsave("/Users/kjy/Desktop/result/images/6.png")
                 print(imagelist)
                 imagelist = f"~/Desktop/result/images/{self.imagenumber}.png"
                 newimage = tk.PhotoImage(file=imagelist)
-                imagelabel = tk.Label(self.newresult, image=newimage)
-                imagelabel.pack(side="top")
+                imagelabel.config(image=newimage)
+                imagelabel.pack()
 
             def Imagebackward():
                 self.imagenumber -= 1
@@ -154,18 +153,24 @@ ggsave("/Users/kjy/Desktop/result/images/6.png")
                 imagelist = f"~/Desktop/result/images/{self.imagenumber}.png"
                 print(self.imagenumber)
                 print(imagelist)
-                imagelist = f"~/Desktop/result/images/{self.imagenumber}.png"
                 newimage = tk.PhotoImage(file=imagelist)
-                imagelabel = tk.Label(self.newresult, image=newimage)
-                imagelabel.pack(side="top")
+                imagelabel.config(image=newimage)
+                imagelabel.pack()
+
+
+            imagelist = f"~/Desktop/result/images/{self.imagenumber}.png"
+            newimage = tk.PhotoImage(file=imagelist)
+            imagelabel = tk.Label(newresult, image=newimage, width=500, height=200)
+            imagelabel.pack()
 
 
 
 
 
-            previousbutton = tk.Button(self.newresult, text="Previous Image", font=buttonfont, command=Imagebackward)
+
+            previousbutton = tk.Button(newresult, text="Previous Image", font=buttonfont, command=Imagebackward)
             previousbutton.pack(side="left", pady=20, padx=20)
-            nextbutton = tk.Button(self.newresult, text="Next Image", font=buttonfont, command=Imageforward)
+            nextbutton = tk.Button(newresult, text="Next Image", font=buttonfont, command=Imageforward)
             nextbutton.pack(side="right", pady=20, padx=20)
 
 
@@ -191,10 +196,6 @@ ggsave("/Users/kjy/Desktop/result/images/6.png")
 
         startanal = tk.Frame(self)
         startanal.pack(side="top")
-
-
-
-
 
 
 
