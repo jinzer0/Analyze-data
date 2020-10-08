@@ -41,7 +41,7 @@ library("dplyr")
 install.packages("ggplot2", repos="https://cran.seoul.go.kr/")
 library("ggplot2")
 
-economic <- read_excel({self.filedir})
+economic <- read_excel("{self.filedir}")
 
 simpleeconomic <- economic %>% select(-futureindex2015100,-futureindexformermonth,-presentindexformermonth,
                                       -formerindexformermonth)
@@ -74,17 +74,17 @@ combining2 <- combining %>% filter(!is.na(death))
 combining3 <- combining2 %>% mutate(month=c("02Feb", "03Mar", "04Apr", "05May", "06Jun", "07Jul", "08Aug"))
 
 workersee <- ggplot(data = combining3, aes(x=month, y=workercount))+geom_col()+scale_y_continuous(name="Percentage of emplyment")
-ggsave("/Users/kjy/Desktop/BigAnal/1.png", width=9, height=9, unit="cm")
+ggsave("/Users/kjy/Desktop/untitled/images/1.png", width=9, height=9, unit="cm")
 
 kospisee <- ggplot(data = combining3, aes(x=month, y=kospip))+geom_col()+scale_y_continuous(name="KOSPI(%p)")
-ggsave("/Users/kjy/Desktop/BigAnal/images/2.png", width=9, height=9, unit="cm")
+ggsave("/Users/kjy/Desktop/untitled/images/2.png", width=9, height=9, unit="cm")
 
 infectedsee <- ggplot(data = combining3)+geom_line(aes(x=month, y=infected,group=1))
 infectedsee <- infectedsee+geom_line(aes(x=month, y=death*10,group=1,colour="red"))
 infectedsee <- infectedsee+scale_y_continuous(breaks = c(500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000),sec.axis = sec_axis(~./10, name = "died"))
 infectedsee <- infectedsee+theme(legend.position = "none")
 infectedsee <- infectedsee+ggtitle("infected and died by COVID-19 cases")
-ggsave("/Users/kjy/Desktop/BigAnal/images/3.png", width=9, height=9, unit="cm")
+ggsave("/Users/kjy/Desktop/untitled/images/3.png", width=9, height=9, unit="cm")
 
 comparetwolittle <- data.frame(index=c("econmy","profit","fund state"),BSI=c(65,65,66),twenty=c(65,66,65))
 comparelittlesee <- ggplot(data = comparetwolittle)+geom_line(aes(x=index,y=BSI,group=1,colour="blue"))
@@ -92,7 +92,7 @@ comparelittlesee <- comparelittlesee+geom_line(aes(x=index,y=twenty,group=1))
 comparelittlesee <- comparelittlesee+scale_y_continuous(name = "2019, 2020(red)", sec.axis = sec_axis(~./1, name = "2019, 2020(red)"))+ylim(62,68)
 comparelittlesee <- comparelittlesee+theme(legend.position = "none")
 comparelittlesee <- comparelittlesee+ggtitle("Net profit and prospection of small business in 2019, 2020(average)")
-ggsave("/Users/kjy/Desktop/BigAnal/images/4.png", width=9, height=9, unit="cm")
+ggsave("/Users/kjy/Desktop/untitled/images/4.png", width=9, height=9, unit="cm")
 
 littlecompanytwen <- littlecompany %>% tail(7)
 traditionalmarkettwen <- traditionalmarket %>% tail(7)
@@ -107,7 +107,7 @@ seewithlittle <- seewithlittle+geom_line(aes(x=month,y=fund.state*60,group=1,col
 seewithlittle <- seewithlittle+scale_y_continuous(name = "infected(black)", breaks = c(500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000), sec.axis = sec_axis(~./60, name = "economy(blue, red)", breaks = c(0,20,40,60,80,100)))
 seewithlittle <- seewithlittle+theme(legend.position = "none")
 seewithlittle <- seewithlittle+ggtitle("Psychological feeling of economy with infected (Small business)")
-ggsave("/Users/kjy/Desktop/BigAnal/images/5.png", width=9, height=9, unit="cm")
+ggsave("/Users/kjy/Desktop/untitled/images/5.png", width=9, height=9, unit="cm")
 
 seewithtraditional <- ggplot(data = combining3)+geom_line(aes(x=month, y=infected, group=1))
 seewithtraditional <- seewithtraditional+geom_line(aes(x=month, y=economy.1*60, group=1, colour="blue"))
@@ -115,27 +115,19 @@ seewithtraditional <- seewithtraditional+geom_line(aes(x=month, y=fund.state.1*6
 seewithtraditional <- seewithtraditional+scale_y_continuous(name = "infected(black)", breaks = c(500,1000,1500,2000,2500,3000,3500,4000,4500,5000,5500,6000), sec.axis = sec_axis(~./60, name = "economy(blue, red)", breaks = c(0,20,40,60,80,100)))
 seewithtraditional <- seewithtraditional+theme(legend.position = "none")
 seewithtraditional <- seewithtraditional+ggtitle("Psychological feeling of economy with infected (Traditional market)")
-ggsave("/Users/kjy/Desktop/BigAnal/images/6.png", width=9, height=9, unit="cm")
+ggsave("/Users/kjy/Desktop/untitled/images/6.png", width=9, height=9, unit="cm")
 """)
 
             newr.close()
 
 
         def Fileanalyze():
-            os.system(
-                "/Library/Frameworks/R.framework/Versions/4.0/Resources/bin/Rscript /Users/kjy/Desktop/testing/test.R")
+            os.system("/Library/Frameworks/R.framework/Versions/4.0/Resources/bin/Rscript /Users/kjy/Desktop/testing/test.R")
+            newwin= tk.Toplevel()
+            newwin.geometry("1000x800+200+180")
+            newwin.title("Analyze Result")
+            newwin.resizable(True, True)
 
-            def Newwinodw():
-                window = tk.Tk()
-                window.geometry("1000x800+200+180")
-                window.resizable(True, True)
-                window.title("Analyze Result")
-
-                img = tk.PhotoImage(file="1.png")
-                imglabel = tk.Label(window, image=img)
-                imglabel.grid(row=1, column=1)
-                window.mainloop()
-            SecondMain = Newwinodw()
 
 
         biganaltitle = tk.Label(
