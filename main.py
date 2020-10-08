@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.font as tkfont
 import tkinter.filedialog as tkfile
 import os as os
-import analyze
+
 
 
 class BigAnal(tk.Tk):
@@ -33,15 +33,15 @@ class BigAnal(tk.Tk):
             self.filename.set("불러온 파일 : "+self.filedir)
             print(self.filedir)
             newr = open("/Users/kjy/Desktop/testing/test.R", "+w")
-            newr.write("""
-install.packages("readxl")
+            newr.write(f"""
+install.packages("readxl", repos="https://cran.seoul.go.kr/")
 library("readxl")
-install.packages("dplyr")
+install.packages("dplyr", repos="https://cran.seoul.go.kr/")
 library("dplyr")
-install.packages("ggplot2")
+install.packages("ggplot2", repos="https://cran.seoul.go.kr/")
 library("ggplot2")
 
-economic <- read_excel("/Users/kjy/Downloads/ecoindex.xlsx")
+economic <- read_excel({self.filedir})
 
 simpleeconomic <- economic %>% select(-futureindex2015100,-futureindexformermonth,-presentindexformermonth,
                                       -formerindexformermonth)
@@ -124,7 +124,19 @@ ggsave("/Users/kjy/Desktop/BigAnal/images/6.png", width=9, height=9, unit="cm")
         def Fileanalyze():
             os.system(
                 "/Library/Frameworks/R.framework/Versions/4.0/Resources/bin/Rscript /Users/kjy/Desktop/testing/test.R")
-            main = analyze
+
+            def Newwinodw():
+                window = tk.Tk()
+                window.geometry("1000x800+200+180")
+                window.resizable(True, True)
+                window.title("Analyze Result")
+
+                img = tk.PhotoImage(file="1.png")
+                imglabel = tk.Label(window, image=img)
+                imglabel.grid(row=1, column=1)
+                window.mainloop()
+            SecondMain = Newwinodw()
+
 
         biganaltitle = tk.Label(
             self.fileload, text="경제 지표 분석", font=title).pack(side="top", pady=50)
